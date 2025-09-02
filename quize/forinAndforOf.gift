@@ -1,0 +1,29 @@
+::Q1-FORIN-STRING:: Make a string `str` and traverse using `for...in` loop. What will it print?
+{}
+
+::Q2-FOROF-STRING:: Make a string `str` and traverse using `for...of` loop. What will it print?
+{}
+
+::Q3-FORIN-ARRAY:: Make an array `arr` and use `for...in` loop to print its keys. What is the output?
+{}  
+
+::Q4-FOROF-ARRAY:: Make an array `arr` and use `for...of` loop to print its values. What is printed?
+{}
+
+::Q5-FORIN-OBJECT:: Make an object `obj` and use `for...in` loop to print its keys. What will it show?
+{}
+
+::Q6-FOROF-OBJECT:: Make an object `obj` and try using `for...of` directly on it. What happens?
+{}
+
+::Q7-FOROF-WITH-STRING-MODIFY:: Create a string `str`, loop over it using `for...of`, and print each uppercase character.
+{}
+
+::Q8-FORIN-ARRAY-HOLES:: Make an array with a hole (e.g., `[1, , 3]`) and use `for...in` to see what indexes it traverses.
+{}
+
+::Q9-FOROF-ARRAY-HOLES:: Make an array with a hole (e.g., `[1, , 3]`) and use `for...of` to print its values. What is the output?
+{}
+
+::Q10-FORIN-ARRAY-CUSTOMPROP:: Create an array and add a custom property (e.g., `arr.x = 5`), then use `for...in` to print all keys. What gets printed?
+{}

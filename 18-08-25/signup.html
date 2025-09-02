@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <form id="userForm">
+        <h1 id="title">Signup</h1>
+        <label>
+            Name:
+            <input type="text" name="name">
+            <p class="error" id="name"></p>
+        </label>
+        <label>
+            Email:
+            <input type="text" name="email">
+            <p class="error" id="email"></p>
+        </label>
+        <label>
+            Password:
+            <input type="text" name="password">
+            <p class="error" id="password"></p>
+        </label>
+        <label>
+            Confirm Password:
+            <input type="text" name="confirmPassword">
+            <p class="error" id="confirmPassword"></p>
+        </label>
+        <button type="submit">Signup</button>
+    </form>
+
+    <input type="text" name="other outside" value="nothing">
+    <script>
+        const userForm = document.querySelector("#userForm");
+        const data = {}
+
+        userForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const inputs = userForm.getElementsByTagName("input");
+            console.log(inputs)
+            Array.from(inputs).forEach((ele) => {
+                data[ele.name] = ele.value;
+            })
+            const stringOBjData = JSON.stringify(data);
+            console.log(stringOBjData, typeof stringOBjData);
+            localStorage.setItem("userdata", stringOBjData);
+            location.href = "login.html";
+        })
+
+    </script>
+</body>
+
+</html>

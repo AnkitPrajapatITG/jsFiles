@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+
+        }
+
+        .subjectForm {
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+            border: 2px solid black;
+            padding: 50px;
+            /* gap: 20px; */
+            border-radius: 20px;
+            height: 300px;
+        }
+
+        input {
+            padding: 2px;
+            width: 40%;
+            height: 20px;
+        }
+
+        .ResultContainer {
+            display: none;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            width: 600px;
+            padding: 10px;
+            /* gap: 5px; */
+        }
+
+        .active {
+            display: block;
+        }
+
+        .Deactive {
+            display: none;
+        }
+
+        th,
+        td {
+            padding-top: 10px;
+            padding-bottom: 20px;
+            padding-left: 50px;
+            padding-right: 38px;
+        }
+
+        .Division,
+        .Status {
+            width: 200px;
+            padding: 5px;
+            /* margin-right: 2px; */
+            border: 1px solid black;
+            font-weight: bold;
+            margin-top: 2px;
+        }
+
+        button {
+            width: 200px;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: aquamarine;
+            border-radius: 10px;
+        }
+
+        .label {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .error{
+            display: none;
+            color:red;
+            font-size: small;
+            margin-top: -10px;
+            margin-left: 40px;
+        }
+
+        .inputContainer {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            gap: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1> Result Form</h1>
+        <div class="subjectForm">
+
+
+            <div class="label">
+                <div class="inputContainer">
+                    <p>Hindi</p>
+                    <input type="text" name="Hindi" class="subject" placeholder="Enter a marks" />
+                </div>
+                <span id="Hindi" class="error">*This Field is required*</span>
+            </div>
+
+            <div class="label">
+                <div class="inputContainer">
+                    <p>English</p>
+                    <input type="text" name="English" class="subject" placeholder="Enter a marks" />
+                </div>
+                <span id="English" class="error">*This Field is required*</span>
+            </div>
+
+            <div class="label">
+                <div class="inputContainer">
+                    <p>Maths</p>
+                    <input type="text" name="Maths" class="subject" placeholder="Enter a marks" />
+                </div>
+                <span id="Maths" class="error">*This Field is required*</span>
+            </div>
+
+            <div class="label">
+                <div class="inputContainer">
+                    <p>Science</p>
+                    <input type="text" name="Science" class="subject" placeholder="Enter a marks" />
+                </div>
+                <span id="Science" class="error">*This Field is required*</span>
+            </div>
+
+
+            <div class="label">
+                <div class="inputContainer">
+                    <p>Social Science</p>
+                    <input type="text" name="SocialScience" class="subject" placeholder="Enter a marks" />
+                </div>
+                <span id="SocialScience" class="error">*This Field is required*</span>
+            </div>
+
+
+            <div class="label">
+                <div class="inputContainer">
+                    <p>Sanskrit</p>
+                    <input type="text" name="Sanskrit" class="subject" placeholder="Enter a marks" />
+                </div>
+                <span id="Sanskrit" class="error">*This Field is required*</span>
+            </div>
+
+            <button id="submitHandler">Submit</button>
+        </div>
+
+        <table class="ResultContainer" border="1">
+            <tr>
+                <td class="rowChild">Subjects</td>
+                <td class="rowChild">Total</td>
+                <td class="rowChild">Obtains</td>
+                <td class="rowChild">Others</td>
+            </tr>
+        </table>
+        <script src="task1.js"></script>
+    </div>
+</body>
+
+</html>

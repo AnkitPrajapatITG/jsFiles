@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Ek object banao jisme name aur unitsConsumed ho. Bill calculate karo:
+        // Pehle 100 units ₹5 per unit
+        // 101 se 300 units ₹7 per unit
+        // 300 se upar ₹10 per unit
+        //  Name aur total bill amount print karo.
+        const electricity_bill = {
+            name: "Naina",
+            unitsconsumed: 200
+        }
+
+
+        let unit_100 = electricity_bill.unitsconsumed * 5;
+        let unit_300 = electricity_bill.unitsconsumed * 7;
+        let unit_above_300 = electricity_bill.unitsconsumed * 10;
+        if (electricity_bill.unitsconsumed <= 100) {
+            console.log("your electric bill : ", unit_100);
+        }
+        else if (electricity_bill.unitsconsumed <= 300) {
+            console.log("Your electric bill : ", unit_300);  
+        }
+        else {
+            console.log("Your electric bill : ", unit_above_300);
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>

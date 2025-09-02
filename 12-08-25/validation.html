@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        function checkEnpty(value) {
+            if (value.length === 0) {
+                console.log("please fill out all fields");
+                return false;
+            }
+            return true;
+        }
+        function trimValue(value) {
+            return value.trim();
+        }
+
+        function startWithCharOrnot(value) {
+            let firstChar = value[0];
+
+            if ((firstChar >= 'a' && firstChar <= 'z') || (firstChar >= 'A' && firstChar <= 'Z')) {
+                console.log("do nothing");
+                return true;
+            }
+            else {
+                console.log("please enter the valid name");
+                return false;
+            }
+        }
+
+        function checkReqLength(value) {
+            if (value.length < 2) {
+                console.log("please enter at least 2 chars");
+                return false;
+            }
+            return true;
+        }
+
+        function checkValidGmail(email) {
+            if (!email.includes('@')) {
+                console.log("please enter valid email")
+                return false;
+            }
+            const indexOfat = email.indexOf("@");
+            if (email.slice(indexOfat).length < 2) {
+                console.log("please enter valid email")
+                return false;
+            }
+            return true;
+        }
+
+        function isLowerCase(char) {
+            if (char >= 'a' && char <= 'z') {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        function isUpperCase(char) {
+            if (char >= 'A' && char <= 'Z') {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        function isDigit(char) {
+            if (char >= '0' && char <= '9') {
+                return true;
+            }
+            else {
+                return false;
+            }
+
+        }
+
+
+        function checkPassword(password) {
+            let length = password.length >= 8;
+            let uppercase = false;
+            let lowercase = false;
+            let digit = false;
+
+            for (let char of password) {
+                if (isUpperCase(char)) {
+                    uppercase = true;
+                }
+                if (isLowerCase(char)) {
+                    lowercase = true;
+                }
+                if (isDigit(char)) {
+                    digit = true;
+                }
+            }
+            if (isDigit && isUpperCase && isLowerCase && length) {
+                return true;
+            }
+            else {
+                console.log("please include one uppercase and one lowercase and one digit and length should be at least 8")
+                return false;
+            }
+        }
+
+
+        let value = "ankit prajapat";
+        value = trimValue(value);
+
+        console.log(checkEnpty(value));
+        value = "kumar22";
+        console.log(startWithCharOrnot(value));
+        value = "ankit";
+        console.log(checkReqLength(value));
+        value = "ankit@gmail.com"
+        console.log(checkValidGmail(value));
+        value = "Ankit@123"
+        console.log(checkPassword(value));
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

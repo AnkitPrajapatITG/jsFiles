@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark & Light Mode Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.light {
+            background-color: #f4f4f4;
+            color: #111;
+        }
+
+        body.dark {
+            background-color: #121212;
+            color: #eee;
+        }
+
+        header, footer {
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+        }
+
+        footer {
+            background-color: #222;
+            color: white;
+        }
+
+        .light header, .light footer {
+            background-color: #ddd;
+            color: #000;
+        }
+
+        .container {
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        #typer {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .toggle-btn {
+            cursor: pointer;
+            background-color: transparent;
+            border: 2px solid currentColor;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            z-index: 1000;
+            display: none;
+        }
+
+        .dark .popup {
+            background-color: #222;
+            color: white;
+        }
+
+        .popup button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .container section {
+            margin-top: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+        }
+
+        .container section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .container section p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body class="light">
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <h2>Welcome to my website!</h2>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <header>
+        <h1>My Website</h1>
+        <button class="toggle-btn" onclick="toggleTheme()">Toggle Theme</button>
+    </header>
+
+    <div class="container">
+        <p>I am a <span id="typer">|</span></p>
+
+        <section>
+            <h2>About Me</h2>
+            <p>I am passionate about technology and building web applications. Whether it's front-end development or back-end logic, I enjoy crafting clean, user-friendly experiences.</p>
+        </section>
+
+        <section>
+            <h2>Projects</h2>
+            <p>Here are a few projects I've worked on:
+                <ul>
+                    <li>Portfolio Website</li>
+                    <li>Weather App using API</li>
+                    <li>To-do List with localStorage</li>
+                </ul>
+            </p>
+        </section>
+
+        <section>
+            <h2>Contact</h2>
+            <p>Feel free to reach out to me at <a href="mailto:your@email.com">your@email.com</a>.</p>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 My Website</p>
+    </footer>
+
+    <script>
+        const typer = document.getElementById("typer");
+        const names = ["engineer", "coder", "developer"];
+        let i = 0;
+
+        function typeText(text, index = 0) {
+            if (index < text.length) {
+                typer.innerText = text.slice(0, index + 1) + "|";
+                setTimeout(() => typeText(text, index + 1), 150);
+            }
+        }
+
+        function loopTyper() {
+            typer.innerText = "";
+            typeText(names[i]);
+            i = (i + 1) % names.length;
+        }
+
+        setInterval(loopTyper, 2000);
+        loopTyper();
+
+        function toggleTheme() {
+            document.body.classList.toggle("dark");
+            document.body.classList.toggle("light");
+        }
+
+        function showPopup() {
+            document.getElementById("popup").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+            document.getElementById("overlay").style.display = "none";
+        }
+
+        window.onload = () => {
+            setTimeout(showPopup, 2000);
+        };
+    </script>
+</body>
+
+</html>

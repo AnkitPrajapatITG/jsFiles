@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background-color: black;
+            color: white;
+            font-size: 29px;
+            margin: 0 auto;
+            gap: 4px;
+        }
+
+        p {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="box" class="box">
+        <p>i am </p>
+        <p> </p><span id="typer"> </span>
+    </div>
+    <button onclick="togglecolor()">click me</button>
+
+    <script>
+        const box = document.getElementById("box");
+        const typer = document.getElementById("typer");
+        const names = [
+            "engineer",
+            "coder",
+            "developer"
+        ]
+
+        let i = 0;
+        setInterval(() => {
+            let text = names[i];
+            let j = 0;
+            let val = setInterval(() => {
+                if (j < text.length) {
+                    typer.innerText = typer.innerText.slice(0, typer.innerText.length - 1);
+                    typer.innerText = typer.innerText + text[j];
+                    typer.innerText += "|"
+                    // typer.innerText.slice(-1);
+                    j++;
+                }
+            }, 200);
+            typer.innerText = ""
+            i++
+            i = (i % 3);
+        }, 2000);
+
+    </script>
+</body>
+
+</html>

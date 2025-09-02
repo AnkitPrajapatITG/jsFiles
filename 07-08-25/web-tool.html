@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #1e1e1e;
+            color: #fff;
+        }
+
+        label {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"],
+        input[type="color"] {
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+
+        #outputBox {
+            margin-top: 30px;
+            padding: 20px;
+            min-height: 60px;
+            background-color: #1e1e1e;
+            border: 2px solid #333;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        .btn{
+            padding: 9px;
+            border: white 2px solid;
+            color: white;
+            cursor: pointer;
+            background-color: rgb(152, 30, 30);
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="inputBox" />
+    <button onclick="addTask()">add task</button>
+    <div class="taskList">
+
+    </div>
+    <!-- <label>
+        Bold
+        <input type="checkbox" onchange="makeBold(this)" />
+    </label>
+    <label>
+        Italic
+        <input type="checkbox" onchange="makeItalic(this)" />
+    </label>
+    <label>
+        UPPERCASE
+        <input type="checkbox" onchange="makeUpperCase(this)" />
+    </label>
+    <label>
+        lowercase
+        <input type="checkbox" onchange="makeLowerCase(this)" />
+    </label>
+    <label>
+        Color
+        <input type="color" oninput="changeColor(this)" />
+    </label>
+    <label>
+        CAPITALIZE
+        <input type="checkbox" onchange="makeCapitalize(this)" />
+    </label>
+    <br />
+    <p id="outputBox"> </p> -->
+
+    <script>
+        const taskList = document.querySelector(".taskList");
+        const inputBox = document.getElementById("inputBox");
+
+        function addTask() {
+            const value = inputBox.value;
+            const li = document.createElement("li");
+            li.innerHTML = `${value} <button onclick='delteMe(this)' class='btn'>delete</button>`;
+            taskList.appendChild(li);
+        }
+        function delteMe(ele) {
+            ele.parentElement.remove();
+        }
+
+
+        // function updateText(input) {
+        //     outputBox.innerText = input.value;
+        // }
+
+        // function makeBold(ele) {
+        //     if (ele.checked) {
+        //         outputBox.style.fontWeight = "900";
+        //     } else {
+        //         outputBox.style.fontWeight = "normal";
+        //     }
+        // }
+        // function makeItalic(ele) {
+        //     if (ele.checked) {
+        //         outputBox.style.fontStyle = "italic";
+        //     } else {
+        //         outputBox.style.fontStyle = "normal";
+        //     }
+        // }
+        // function makeUpperCase(ele) {
+        //     if (ele.checked) {
+        //         outputBox.innerText = outputBox.innerText.toUpperCase();
+        //     } else {
+        //         outputBox.innerText = inputBox.value;
+        //     }
+        // }
+        // function makeLowerCase(ele) {
+        //     if (ele.checked) {
+        //         outputBox.innerText = outputBox.innerText.toLowerCase();
+        //     } else {
+        //         outputBox.innerText = inputBox.value;
+        //     }
+        // }
+        // function makeCapitalize(ele) {
+        //     if (ele.checked) {
+        //         outputBox.innerText = makeCapitalFirstLetter(outputBox.innerText);
+        //     } else {
+        //         outputBox.innerText = inputBox.value;
+        //     }
+        // }
+
+        // function changeColor(ele) {
+        //     outputBox.style.color = ele.value;
+        // }
+        // function makeCapitalFirstLetter(sentence) {
+        //     const words = sentence.trim().split(" ");
+        //     return words
+        //         .map((word) => word[0].toUpperCase() + word.slice(1))
+        //         .join(" ");
+        // }
+    </script>
+</body>
+
+</html>

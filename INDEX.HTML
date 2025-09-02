@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <button onclick="redColor()" id="main">click me</button>
+    <button onclick="greenColor()" id="main">click here</button>
+    <button onclick="blueColor()" id="main">click on</button>
+    <script>
+        let element = document.getElementById("main")
+        function redColor() {
+            element.style.backgroundImage = `linear-gradient("red")`;
+        }
+        function greenColor() {
+            element.style.backgroundImage = `linear-gradient("red, green")`;
+        }
+        function blueColor() {
+            element.style.backgroundImage = `linear-gradient("red, green, blue")`;
+        }
+
+    </script>
+</body>
+
+</html>

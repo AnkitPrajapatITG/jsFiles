@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let person_one = {
+            name: "abc",
+            salary: 200
+        }
+
+        let person_two = {
+            name: "raghav",
+            salary: 200
+        }
+
+        // if(person_one.salary>person_two.salary){
+        //     console.log("person-one earn more than person_two");
+        // }else if(person_two.salary>person_one.salary){
+        //     console.log("person_two earn more than person_one");
+        // }else{
+        //     console.log("both earn equal")
+        // };   
+        /*if (person_one.salary > person_two.salary) {
+            console.log("person-one earn more than person_two");
+        
+        if (person_two.salary > person_one.salary) {
+            console.log("person_two earn more than person_one");
+        }
+     }
+      else {
+            console.log("both earn equal")
+        };*/
+
+        let a = "person_one.salary";
+        let b = "person_two.salary"
+        let res = a > b ? "person-one earn more than person_two" : "person_two earn more than person_one"
+        console.log(res);
+
+    </script>
+
+</body>
+
+</html>

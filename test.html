@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let loading = false;
+    const API_key = 'a173a9475981faa920d7213a714f3194';
+
+    async function getWeatherData(cityName) {
+      loading = true;
+      try {
+        const resp = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_key}&units=metric`);
+        console.log(res);
+        // loading = false;
+      }
+      catch (err) {
+        console.log("getting error ", er);
+        // loading = false;
+      }finally{
+        try{
+
+        }catch(e){
+
+        }finally{
+          loading = false;
+
+        }
+      }
+    }
+    getWeatherData("dewas");
+  </script>
+</body>
+
+</html>

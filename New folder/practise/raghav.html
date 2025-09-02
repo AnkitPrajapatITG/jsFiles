@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        let traingle = {
+            a: 4,
+            b: 5,
+            c: 4,
+        }
+        let { a, b, c } = traingle;
+
+        if (a === b && b === c) {
+            console.log("it is an equilateral traingle")
+        }
+        else if (a === b || b === c || c === a) {
+            console.log("it is an isoceles triangle");
+        }
+        else {
+            console.log("it is an scalene traingle")
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>

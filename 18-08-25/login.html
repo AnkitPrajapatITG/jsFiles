@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="userForm">
+        <h1 id="title">Login</h1>
+
+        <label>
+            Email:
+            <input type="text" name="email">
+            <p class="error" id="email"></p>
+        </label>
+        <label>
+            Password:
+            <input type="text" name="password">
+            <p class="error" id="password"></p>
+        </label>
+
+        <button type="submit">Login</button>
+    </form>
+    <script>
+        const userForm = document.querySelector("#userForm");
+        const data = {}
+        userForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const inputs = document.getElementsByTagName("input");
+            Array.from(inputs).forEach((ele) => {
+                data[ele.name] = ele.value;
+            })
+            const objData = localStorage.getItem("userdata");
+            const normalObj = JSON.parse(objData);
+            if (normalObj.email != data.email || normalObj.password != data.password) {
+                alert("email and password does not matched");
+            }
+            else {
+                alert("login successfull")
+            }
+        })
+
+    </script>
+</body>
+
+</html>

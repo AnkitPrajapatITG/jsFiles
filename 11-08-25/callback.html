@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docume nt</title>
+</head>
+
+<h1 id="res"></h1>
+
+<body>
+    <script>
+        function updateText(text) {
+            document.querySelector("#res").innerText = text;
+        }
+
+        function writeTable(num) {
+            const box = document.querySelector("#res");
+            for (let i = 1; i <= 10; i++) {
+                box.innerText += `${num} x ${i} = ${num * i} \n`;
+            }
+        }
+        function ran(num) {
+            let m = Math.floor(Math.random() * (num - 1) + 1);
+            const box = document.querySelector("#res");
+            box.innerText = + m
+            console.log(m)
+
+
+        }
+
+        function sum(a, b, callback1, callback2, callback3) {
+            // console.log("writeTable", helper);
+            let res = a + b;
+            setTimeout(() => {
+                callback1(res);
+
+            }, 1000);
+            setTimeout(() => {
+                callback2(res);
+
+            }, 2000);
+            setTimeout(() => {
+                callback3(res);
+
+            }, 3000);
+
+        }
+        // console.log(sum(2, 3, ran));
+
+        // sum(44, 5, (num) => {
+        //     console.log("hello i am callback function with num", num);
+        // });
+
+
+        // function speak(text, callback) {
+
+        //     text = text + "🙌"
+        //     callback(text);
+        // }
+
+        // function helper(text) {
+        //     alert(text);
+        // }
+
+        // speak("good afternoon", helper)
+
+        // sum(55, 5, writeTable, updateText, ran);
+        setInterval(() => {
+            const date = new Date();
+            res.innerText = `${date.getHours()%12} :  ${date.getMinutes()} : ${date.getSeconds()}`;
+
+        }, 1000);
+        // sum(honey, 5, ran)
+    </script>
+</body>
+
+</html>

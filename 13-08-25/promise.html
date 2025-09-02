@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active {
+            display: none;
+        }
+    </style>
+</head>
+
+<h1 id="loader" class="active">Loading data is comming</h1>
+
+<body>
+    <script>
+
+
+        const loader = document.getElementById("loader")
+        const loading = false;
+        function geatdata() {
+            loader.classList.toggle("active");
+            fetch("https://dummyjson.com/products")
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("Albums:", data);
+                    return data.products[0].reviews;
+                })
+                .then((reviews) => {
+                    loader.classList.toggle("active");
+                    // reviewsObj = reviews;
+                    console.log(reviews)
+                })
+                .catch((error) => {
+                    console.error("Error fetching albums:", error);
+                });
+
+            // return reviewsObj;
+        }
+        geatdata();
+
+
+
+    </script>
+</body>
+
+</html>

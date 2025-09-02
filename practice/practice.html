@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        #todoInput {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #addButton {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #addButton:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        li.completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        button.delete {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button.delete:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <input type="text" id="todoInput" placeholder="Add a new task..." />
+        <button id="addButton">Add Task</button>
+
+        <ul id="todoList"></ul>
+    </div>
+
+    <script >
+        document.getElementById('addButton').addEventListener('click', addTask);
+
+        function addTask() {
+            const input = document.getElementById('todoInput');
+            const taskText = input.value.trim();
+
+            if (taskText !== '') {
+                const todoList = document.getElementById('todoList');
+
+                // Create a new list item
+                const li = document.createElement('li');
+
+                // Create task text
+                const span = document.createElement('span');
+                span.textContent = taskText;
+                li.appendChild(span);
+
+                // Add a delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.className = 'delete';
+                deleteButton.onclick = function () {
+                    li.remove();
+                };
+                li.appendChild(deleteButton);
+
+                // Add a click event to mark task as completed
+                li.addEventListener('click', function () {
+                    li.classList.toggle('completed');
+                });
+
+                // Append the new task to the list
+                todoList.appendChild(li);
+
+                // Clear the input field
+                input.value = '';
+            }
+        }
+
+        // Optional: Allow pressing Enter key to add task
+        document.getElementById('todoInput').addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                addTask();
+            }
+        });
+
+    </script>
+</body>
+
+</html>

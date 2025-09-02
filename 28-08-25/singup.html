@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<form id="userForm">
+    <h1 id="title">Signup</h1>
+    <label>
+        Name:
+        <input type="text" name="Name">
+        <p class="error" id="name"></p>
+    </label>
+    <label>
+        Email:
+        <input type="text" name="Email">
+        <p class="error" id="email"></p>
+    </label>
+    <label>
+        Password:
+        <input type="text" name="Password">
+        <p class="error" id="password"></p>
+    </label>
+    <button type="submit">Signup</button>
+</form>
+
+<body>
+    <script>
+        const userForm = document.querySelector("#userForm");
+        userForm.addEventListener("submit", () => {
+            event.preventDefault();
+            const inputs = userForm.getElementsByTagName("input");
+            const data = {};
+            Array.from(inputs).forEach((ele) => {
+                data[ele.name] = ele.value;
+            })
+            createAccount(data);
+        })
+        async function createAccount(data) {
+            try {
+                const option = {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }
+                const response = await fetch("https://ewl-server.vercel.app/api/v1/Auth/Signup", option);
+                const jsondata = await response.json();
+                console.log(jsondata)
+                alert(jsondata.msg);
+                if (jsondata.success) {
+                    window.location = "login.html";
+                }
+
+            } catch (error) {
+                console.log(error.message)
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

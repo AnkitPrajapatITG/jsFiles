@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fabric.js Curved Text Warp</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 30px;
+    }
+    canvas {
+      border: 1px solid #ddd;
+      margin-bottom: 20px;
+    }
+    input[type=range] {
+      width: 300px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Fabric.js Curved Text Warp</h2>
+<canvas id="canvas" width="800" height="700"></canvas><br>
+<label>Warp Amount:</label>
+<input type="range" id="warpSlider" min="-100" max="100" value="0">
+<input type="text" id="textInput" value="sample test">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+<script>
+  // Custom Fabric object
+  fabric.CurvedText = fabric.util.createClass(fabric.Object, {
+    type: 'curved-text',
+    initialize: function (text, options) {
+      this.text = text;
+      this.fontSize = options.fontSize || 60;
+      this.warp = options.warp || 0;
+      this.callSuper('initialize', options);
+    },
+    _render: function (ctx) {
+      const chars = this.text.split('');
+      const spacing = this.fontSize * 0.8;
+      const totalWidth = chars.length * spacing;
+      const warp = this.warp;
+
+      ctx.font = `${this.fontSize}px Arial`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = this.fill || 'black';
+
+      const direction = warp > 0 ? 1 : -1;
+      const warpAbs = Math.abs(warp);
+
+      if (warp === 0) {
+        for (let i = 0; i < chars.length; i++) {
+          const char = chars[i];
+          const x = -totalWidth / 2 + i * spacing + spacing / 2;
+          const y = 0;
+          ctx.fillText(char, x, y);
+        }
+      } else {
+        const radius = totalWidth / (8 * Math.sin(warpAbs * Math.PI / 360));
+        const angleStep = spacing / radius;
+        const startAngle = -angleStep * (chars.length - 1) / 2;
+
+        for (let i = 0; i < chars.length; i++) {
+          const char = chars[i];
+          const angle = startAngle + i * angleStep;
+          const x = radius * Math.sin(angle);
+          const y = direction * radius * (1 - Math.cos(angle));
+
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(angle * direction);
+          ctx.fillText(char, 0, 0);
+          ctx.restore();
+        }
+      }
+    },
+    toObject: function () {
+      return fabric.util.object.extend(this.callSuper('toObject'), {
+        text: this.text,
+        fontSize: this.fontSize,
+        warp: this.warp
+      });
+    }
+  });
+
+  // Setup Fabric canvas
+  const canvas = new fabric.Canvas('canvas');
+
+  const curvedText = new fabric.CurvedText("sample test", {
+    left: 400,
+    top: 350,
+    warp: 0,
+    fontSize: 60,
+    fill: 'black',
+    originX: 'center',
+    originY: 'center',
+    selectable: true
+  });
+
+  canvas.add(curvedText);
+
+  // Controls
+  const slider = document.getElementById('warpSlider');
+  const textInput = document.getElementById('textInput');
+
+  slider.addEventListener('input', () => {
+    curvedText.warp = Number(slider.value);
+    curvedText.dirty = true;
+    canvas.requestRenderAll();
+  });
+
+  textInput.addEventListener('input', () => {
+    curvedText.text = textInput.value;
+    curvedText.dirty = true;
+    canvas.requestRenderAll();
+  });
+</script>
+
+</body>
+</html>

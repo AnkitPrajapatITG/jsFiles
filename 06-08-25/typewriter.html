@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            height: 500px;
+            width: 500px;
+            font-size: 40px;
+            background-color: black;
+            color: white;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <p>I am</p> <span id="typer"></span>
+    </div>
+    <script>
+        const names = [
+            "engineer",
+            "coder",
+            "developer",
+            "ChatGpt"
+        ]
+        const typer = document.getElementById("typer");
+        let i = 0;
+        let n = names.length;
+        setInterval(() => {
+            let word = names[i];
+            let j = 0;
+            const value = setInterval(() => {
+                if (j < word.length) {
+                    typer.innerText = typer.innerText.slice(0, -1)
+                    typer.innerText += word[j];
+                    typer.innerText += "|"
+                }
+                else {
+                    stopinterval();
+                }
+                function stopinterval() {
+                    clearInterval(value)
+                    i++;
+                }
+                j++;
+            }, 100);
+
+            i = i % n;
+            typer.innerText = "";
+        }, 2000);
+
+
+    </script>
+</body>
+
+</html>

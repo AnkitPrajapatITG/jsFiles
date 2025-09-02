@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* HTML: <div class="loader"></div> */
+        /* HTML: <div class="loader"></div> */
+        /* HTML: <div class="loader"></div> */
+        .loader {
+            display: none;
+            width: 15px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            animation: l5 1s infinite linear alternate;
+        }
+
+        @keyframes l5 {
+            0% {
+                box-shadow: 20px 0 #000, -20px 0 #0002;
+                background: #000
+            }
+
+            33% {
+                box-shadow: 20px 0 #000, -20px 0 #0002;
+                background: #0002
+            }
+
+            66% {
+                box-shadow: 20px 0 #0002, -20px 0 #000;
+                background: #0002
+            }
+
+            100% {
+                box-shadow: 20px 0 #0002, -20px 0 #000;
+                background: #000
+            }
+        }
+
+        #userForm {
+            margin: 0 auto;
+            width: 500px;
+        }
+
+        .loginbtn {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+    </style>
+</head>
+<form id="userForm">
+    <h1 id="title">Login</h1>
+    <label>
+        Email:
+        <input type="text" name="Email">
+        <p class="error" id="email"></p>
+    </label>
+    <label>
+        Password:
+        <input type="text" name="Password">
+        <p class="error" id="password"></p>
+    </label>
+    <span class="loader"></span>
+    <button type="submit" class="loginbtn active">Login</button>
+    <p id="result"></p>
+</form>
+
+<body>
+    <script>
+        const userForm = document.querySelector("#userForm");
+        const result = document.querySelector("#result");
+        const loading = document.querySelector(".loader");
+        const loginbtn = document.querySelector(".loginbtn");
+
+        userForm.addEventListener("submit", () => {
+            event.preventDefault();
+            const inputs = userForm.getElementsByTagName("input");
+            const data = {};
+            Array.from(inputs).forEach((ele) => {
+                data[ele.name] = ele.value;
+            })
+            loginAccount(data);
+        })
+        async function loginAccount(data) {
+            loading.classList.add("active");
+            loginbtn.classList.remove("active");
+            result.innerText = "";
+            try {
+                const option = {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }
+                const response = await fetch("https://ewl-server.vercel.app/api/v1/Auth/Login", option);
+                const jsondata = await response.json();
+                // alert(jsondata.msg);
+                result.innerText = jsondata.msg;
+
+            } catch (error) {
+                console.log(error.message)
+            } finally {
+                loading.classList.remove("active");
+                loginbtn.classList.add("active");
+            }
+        }
+
+    </script>
+</body>
+
+</html>

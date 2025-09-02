@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #userForm {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h1#title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="userForm">
+        <h1 id="title">Signup</h1>
+        <label>
+            Name:
+            <input type="text" name="name">
+            <p class="error" id="name"></p>
+        </label>
+        <label>
+            Email:
+            <input type="text" name="email">
+            <p class="error" id="email"></p>
+        </label>
+        <label>
+            Password:
+            <input type="text" name="password">
+            <p class="error" id="password"></p>
+        </label>
+        <label>
+            Confirm Password:
+            <input type="text" name="confirmPassword">
+            <p class="error" id="confirmPassword"></p>
+        </label>
+        <button type="submit">Signup</button>
+    </form>
+    <script>
+        // Form and inputs ko select kiya
+        const form = document.querySelector("#userForm");
+        const inputs = form.querySelectorAll("input");
+        const data = {}; // Valid data ko store karne ke liye object
+
+        function isValidPassword(password) {
+            let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*]{8,}$/;
+            return regex.test(password);
+        }
+
+        function isValidEmail(email) {
+            const regex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/;
+            return regex.test(email);
+        }
+
+        function isValidName(name) {
+            const regex = /^[a-z A-Z]{1,20}$/;
+            return regex.test(name);
+        }
+
+        // Ye check karta hai kya character lowercase hai
+        function isLowerCase(char) {
+            return char >= 'a' && char <= 'z';
+        }
+
+        // Ye check karta hai kya character uppercase hai
+        function isUpperCase(char) {
+            return char >= 'A' && char <= 'Z';
+        }
+
+        // Ye check karta hai kya character ek digit (0–9) hai
+        function isDigit(char) {
+            return char >= '0' && char <= '9';
+        }
+
+        // Name ka pehla character letter hona chahiye (A–Z or a–z)
+        function startWithCharOrnot(value) {
+            let firstChar = value[0];
+            return ((firstChar >= 'a' && firstChar <= 'z') || (firstChar >= 'A' && firstChar <= 'Z'));
+        }
+
+        // Email validation: '@' hona chahiye, uske dono sides valid length hone chahiye, aur '.' hona chahiye
+        function checkValidGmail(email) {
+            const regex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/;
+            return regex.test(email);
+            // console.log(email)
+            // const indexOfAt = email.indexOf('@');
+            // if (indexOfAt === 0) return false;
+            // if (email.slice(0, indexOfAt).length < 3) return false;
+
+            // const chars = email.split("");
+            // const values = chars.filter((char) => char === '@');
+            // if (values.length != 1) return false;
+
+            // const nextStrAfterAt = email.slice(indexOfAt + 1);
+
+            // if (nextStrAfterAt.length < 2) return false;
+            // const indexOfDot = nextStrAfterAt.indexOf('.');
+
+            // if (indexOfDot == 0) return 0;
+
+            // // return (
+            // //     indexOfAt > 1 &&
+            // //     email.slice(indexOfAt + 1).length > 1 &&
+            // //     email.includes('.')
+            // // );
+
+            // return true;
+        }
+
+        // Name field ka validation
+        function nameValidation(value, name) {
+            const error = document.getElementById(name);
+            error.innerText = "";
+            value = value.trim();
+
+            if (value.length === 0) return false;
+
+            // Agar name chhota hai to error dikhaye
+            if (value.length < 2) {
+                error.innerText = "Name is too short";
+                return false;
+            }
+
+            // Name letter se start hona chahiye
+            if (!startWithCharOrnot(value)) {
+                error.innerText = "Please enter a valid name";
+                return false;
+            }
+
+            return true;
+        }
+
+        // Email field ka validation
+        function emailValidation(value, name) {
+            const error = document.getElementById(name);
+            error.innerText = "";
+
+            if (value.length === 0) return false;
+
+            if (!checkValidGmail(value)) {
+                error.innerText = "Please enter a valid email";
+                return false;
+            }
+
+            return true;
+        }
+
+        // Password validation: length 8+, uppercase, lowercase, digit hona chahiye
+        function passwordValidation(password, name) {
+            const error = document.getElementById(name);
+            error.innerText = "";
+
+            if (password.length === 0) return false;
+
+            const hasLength = password.length >= 8;
+            let hasUppercase = false;
+            let hasLowercase = false;
+            let hasDigit = false;
+
+            // Har character ko check kar rahe hain
+            for (let char of password) {
+                if (isUpperCase(char)) hasUppercase = true;
+                if (isLowerCase(char)) hasLowercase = true;
+                if (isDigit(char)) hasDigit = true;
+            }
+
+            // Agar sab condition true hai to password valid hai
+            if (hasUppercase && hasLowercase && hasDigit && hasLength) {
+                return true;
+            } else {
+                error.innerText =
+                    "Password must be 8+ characters with uppercase, lowercase & digit";
+                return false;
+            }
+        }
+
+        // Confirm password validate karega ki woh password ke equal hai ya nahi
+        function confirmPasswordValidation(confirmPassword, password, name) {
+            const error = document.getElementById(name);
+            error.innerText = "";
+
+            if (confirmPassword.length === 0) return false;
+
+            // Pehle confirm password ka khud ka validation
+            if (!passwordValidation(confirmPassword, name)) {
+                return false;
+            }
+
+            // Check password match karta hai ya nahi
+            if (confirmPassword !== password) {
+                error.innerText = "Passwords do not match";
+                return false;
+            }
+
+            return true;
+        }
+
+        // Input change hone par real-time validation
+        Array.from(inputs).forEach((ele) => {
+            ele.addEventListener("change", (event) => {
+                const value = event.target.value;
+                const name = event.target.name;
+
+                // Har input ke according uska validation
+                if (name === "name" && nameValidation(value, name)) {
+                    data[name] = value;
+                } else if (name === "email" && emailValidation(value, name)) {
+                    data[name] = value;
+                } else if (name === "password" && passwordValidation(value, name)) {
+                    data[name] = value;
+                } else if (
+                    name === "confirmPassword" &&
+                    confirmPasswordValidation(value, form.password.value, name)
+                ) {
+                    data[name] = value;
+                }
+            });
+        });
+
+        // Form submit hone par saare validations ek sath chalein
+        form.addEventListener("submit", (event) => {
+            event.preventDefault(); // Page reload na ho
+            const errorDesc = "This field is required";
+
+            // Sabhi inputs check karte hain valid hain ya nahi
+            const allValid = Array.from(inputs).every((ele) => {
+                const value = ele.value;
+                const name = ele.name;
+
+                const error = document.getElementById(name);
+                error.innerText = "";
+
+                // Agar field khaali hai to error show karo
+                if (value.trim().length === 0) {
+                    error.innerText = errorDesc;
+                    return false;
+                }
+
+                // Individual validations
+                if (name === "name") {
+                    if (nameValidation(value, name)) {
+                        data[name] = value;
+                        return true;
+                    }
+                } else if (name === "email") {
+                    if (emailValidation(value, name)) {
+                        data[name] = value;
+                        return true;
+                    }
+                } else if (name === "password") {
+                    if (passwordValidation(value, name)) {
+                        data[name] = value;
+                        return true;
+                    }
+                } else if (name === "confirmPassword") {
+                    if (confirmPasswordValidation(value, form.password.value, name)) {
+                        data[name] = value;
+                        return true;
+                    }
+                }
+
+                return false; // Agar koi validation fail ho to
+            });
+
+            // Agar sab field valid hain to data console mein dikhao
+            if (allValid) {
+                console.log("Validated Data:", data);
+            }
+        });
+    </script>
+
+</body>
+
+</html>

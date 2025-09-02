@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* HTML: <div class="loader"></div> */
+        .loader {
+            width: 50px;
+            aspect-ratio: 1;
+            display: grid;
+            -webkit-mask: conic-gradient(from 15deg, #0000, #000);
+            animation: l26 1s infinite steps(12);
+        }
+
+        .loader,
+        .loader:before,
+        .loader:after {
+            background:
+                radial-gradient(closest-side at 50% 12.5%,
+                    #f03355 96%, #0000) 50% 0/20% 80% repeat-y,
+                radial-gradient(closest-side at 12.5% 50%,
+                    #f03355 96%, #0000) 0 50%/80% 20% repeat-x;
+        }
+
+        .loader:before,
+        .loader:after {
+            content: "";
+            grid-area: 1/1;
+            transform: rotate(30deg);
+        }
+
+        .loader:after {
+            transform: rotate(60deg);
+        }
+
+        @keyframes l26 {
+            100% {
+                transform: rotate(1turn)
+            }
+        }
+
+        .image {
+            border: 2px solid black;
+            border-radius: 20%;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .deactive {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <img class="image" src="" height="100px" width="100px"> -->
+    <span class="loader"></span>
+
+    <script>
+        // let src = "https://simaxdesigns.imgix.net/uploads/1756105775452_cloud-1-1.jpg";
+        let src = "https://images.unsplash.com/photo-1491466424936-e304919aada7?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        // let src = "https://simax-sports-eight.vercel.app/6134cf61-9401-4633-9993-6823b2d43835";
+        const loader = document.querySelector(".loader");
+
+        let loading = false;
+
+        function loadImage(src) {
+            // loading = true;
+            loader.classList.add("active");
+            console.log("image is ready to load")
+            return new Promise((resolve, reject) => {
+                const myImage = new Image(300, 300);
+                myImage.onload = () => {
+                    setTimeout(() => {
+                        resolve(true);
+                        document.body.appendChild(myImage)
+                    }, 5000);
+                }
+                myImage.onerror = (error) => {
+                    reject(error);
+                }
+                myImage.src = src;
+
+            })
+        }
+        loadImage(src).then((value) => {
+            console.log("image is loaded")
+        }).catch((err) => {
+            console.log("image is unable to laod")
+        }).finally(() => {
+            loader.classList.add("deactive");
+            loading = false
+        })
+
+
+        console.log("hello i am outside promise")
+        // setTimeout(() => {
+        // }, 6000);
+    </script>
+</body>
+
+</html>

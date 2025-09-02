@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <div class="quizContainer">
+
+    </div>
+    <script>
+        const quizContainer = document.querySelector(".quizContainer")
+        let AllQuestions = [];
+        let AllAnswer = [];
+        let currentIndex = 0;
+
+
+        function nextQ() {
+            if (currentIndex + 1 < AllQuestions.length) {
+                currentIndex++;
+                displayQuestion(currentIndex)
+            }
+
+        }
+        function addAnswer(index, value) {
+            AllAnswer[index] = value;
+        }
+        function submit() {
+
+            // const totalScore = AllAnswer.reduce((score, value, index) => {
+            //     console.log("user selected option with q inddex", value, index);
+            //     console.log("correct ans in all Q", AllQuestions[index], '\n\n')
+            //     if (AllQuestions[index].answer === value) {
+            //         return score + 1;
+            //     }
+            //     return score;
+            // }, 0)
+
+            let totalScore = 0;
+
+            AllAnswer.forEach((value, index) => {
+                const correctAns = AllQuestions[index].answer;
+                if (value == correctAns) totalScore++;
+            })
+
+            console.log("all answer", AllAnswer);
+            console.log("total score", totalScore)
+            storeScoreToDb("EWlStudents", totalScore);
+        }
+
+        async function getAllQ() {
+            try {
+                const resp = await fetch("https://ai-agent-steel-ten.vercel.app/api/v1/quiz/questions/all");
+                const data = await resp.json();
+                console.log(data)
+                AllQuestions = data;
+                displayQuestion(currentIndex)
+
+            } catch (e) {
+                console.log("error while fetching the q", e);
+            }
+        }
+        async function storeScoreToDb(name, score) {
+            try {
+                const option = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ name, score })
+                }
+                const resp = await fetch("https://ai-agent-steel-ten.vercel.app/api/v1/quiz/saveScores", option);
+                const data = await resp.json();
+                console.log(data);
+
+            } catch (error) {
+                console.log("error while storing the data", error)
+            }
+        }
+
+        function displayQuestion(currentIndex) {
+            const currentQ = AllQuestions[currentIndex];
+            const title = currentQ.question;
+            const option = currentQ.options;
+            const answer = currentQ.answer;
+
+            const div = document.createElement("div");
+            div.setAttribute("class", "qContainer");
+
+            div.innerHTML = `
+               <h2>${title}</h2>
+               <div class="optionContainer">
+                <button class="optionBtn" onclick = "addAnswer('${currentIndex}','${option[0]}')" >${option[0]}  </button>
+                <button class="optionBtn" onclick = "addAnswer('${currentIndex}','${option[1]}')">${option[1]}</button>
+                <button class="optionBtn" onclick = "addAnswer('${currentIndex}','${option[2]}')">${option[2]}</button>
+                <button class="optionBtn" onclick = "addAnswer('${currentIndex}','${option[3]}')">${option[3]}</button>
+                </div>
+                ${currentIndex == AllQuestions.length - 1 ? `<button class="nextBtn" onclick = "submit()">submit</button>` : `<button class="nextBtn" onclick = "nextQ()">next</button>`
+                }
+               `
+            quizContainer.innerHTML = ""
+            quizContainer.appendChild(div)
+        }
+        getAllQ();
+
+    </script>
+</body>
+
+</html>

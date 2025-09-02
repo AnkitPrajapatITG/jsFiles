@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM PRACTICE</title>
+    <!-- <script src="script.js"></script> -->
+    <style>
+        #clock {
+            font-size: 50px;
+            width: 300px;
+            border: 2px solid skyblue;
+            border-radius: 20px;
+            padding: 20px;
+            float: right;
+            background-color: #f0f8ff;
+            color: #333;
+            text-align: center;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+            #clock:hover {
+                transform: scale(1.05);
+
+            }
+
+            .header {
+                display: flex;
+                background: #000;
+                padding: 10px 20px;
+                align-items: center;
+                justify-content: space-between;
+                color: white;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+
+            }
+
+            .header h1 {
+                font-size: 30px;
+                font-family: 'Arial', sans-serif;
+                color: #f0f8ff;
+
+            }
+
+            #header .logo {
+                font-size: 30px;
+                color: #ff6347;
+            }
+
+           
+
+            #greet ,#day{
+                font-size: 50px;
+                color: rgb(80, 190, 241);
+                font-weight: bold;
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+                transition: color 0.3s ease-in-out;
+
+            }
+
+            #greet:hover {
+                color: rgb(255, 99, 71);
+                /* Change color on hover to Tomato */
+            }
+
+            body {
+                font-family: 'Arial', sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+                /* Light gray background for the body */
+            }
+
+    </style>
+</head>
+<div class="header">
+    <div id="greet"></div>
+    <div id="day"></div>
+    <div id="clock">8:10:45 </div>
+</div>
+<button id="btn">click me</button>
+<div id="demo" style="height: 300px; width: 300px;"
+    onmouseover="document.querySelector(`#demo`).style.backgroundColor = `red`"
+    onmouseleave="document.querySelector(`#demo`).style.backgroundColor = `white`">
+    hello world
+</div>
+<button onclick="document.getElementById('demo').innerHTML = Date()">The time is?</button>
+
+<body>
+
+    <script src="clock.js"></script>
+    <!-- <script src="regExp.js" > </script>
+    <script src="arrowFunctoin.js" type="module"></script>
+    
+    <script src="class.js" ></script> -->
+    <script src="regExp.js" ></script>
+</body>
+
+</html>
